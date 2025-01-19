@@ -1,0 +1,20 @@
+---
+- name: Download Lighthouse
+  ansible.builtin.get_url:
+    url: "https://github.com/VKCOM/lighthouse/archive/refs/heads/master.zip"
+    dest: "/tmp/lighthouse.zip"
+    mode: '0644'
+
+- name: Create installation directory
+  ansible.builtin.file:
+    path: "/usr/share/nginx/html"
+    state: directory
+    mode: '0755'
+
+- name: Extract Lighthouse archive
+  ansible.builtin.unarchive:
+    src: "/tmp/lighthouse.zip"
+    dest: "/usr/share/nginx/html"
+    remote_src: true
+  become: true
+# tasks file for lighthouse-role
